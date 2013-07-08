@@ -16,6 +16,10 @@ class GBS_Refund_Users {
 			// All payments
 			foreach ( $payments as $payment_id ) {
 				$payment = Group_Buying_Payment::get_instance( $payment_id );
+				if ( $payment->get_status() == Group_Buying_Payment::STATUS_REFUND ) {
+					error_log( 'already refunded' . print_r( TRUE, TRUE ) );
+					continue;
+				}
 				$payment_method = $payment->get_payment_method();
 				// Don't handle credit payments
 				if ( $payment_method != Group_Buying_Account_Balance_Payments::PAYMENT_METHOD || $payment_method != Group_Buying_Affiliate_Credit_Payments::PAYMENT_METHOD ) {
@@ -36,6 +40,7 @@ class GBS_Refund_Users {
 							}
 						}
 					}
+					$payment->set_status( Group_Buying_Payment::STATUS_REFUND );
 
 				}
 			}
