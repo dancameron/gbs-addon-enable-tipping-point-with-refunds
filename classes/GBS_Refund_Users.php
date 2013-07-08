@@ -29,12 +29,13 @@ class GBS_Refund_Users {
 					foreach ( $items as $deal_id => $purchase_items ) {
 						// Only those deals that have failed
 						if ( $item_id == $deal_id ) {
-							// loop through all items
+							// loop through all items within the deal key.
 							foreach ( $purchase_items as $item ) {
-								foreach ( $item['payment_method'] as $payment_method => $payment ) {
+								// Loop through all the payment methods to tally.
+								foreach ( $item['payment_method'] as $payment_method => $payment_amount ) {
 									// again don't tally credits
-									if ( $payment_method != Group_Buying_Account_Balance_Payments::PAYMENT_METHOD || $payment_method != Group_Buying_Affiliate_Credit_Payments::PAYMENT_METHOD ) {
-										$refund_amount += $payment;
+									if ( $payment_method != Group_Buying_Account_Balance_Payments::PAYMENT_METHOD && $payment_method != Group_Buying_Affiliate_Credit_Payments::PAYMENT_METHOD ) {
+										$refund_amount += $payment_amount;
 									}
 								}
 							}
@@ -44,6 +45,10 @@ class GBS_Refund_Users {
 
 				}
 			}
+			// Stop before blank records are made.
+			if ( !$refund_amount )
+				return;
+
 			// Refund the user
 			$account_id = $purchase->get_account_id();
 			$account = Group_Buying_Account::get_instance_by_id( $account_id );
