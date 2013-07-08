@@ -20,7 +20,7 @@ class GBS_Enable_Tipping_Addon {
 	}
 
 	public static function gb_addon( $addons ) {
-		$addons['sharing_rewards'] = array(
+		$addons['enable_tipping_refunds'] = array(
 			'label' => gb__( 'Enable tipping, with refunds.' ),
 			'description' => gb__( 'Enable tipping points on all payment processors, if the deal fails to tip than the customer will be refunded via their account balance.' ),
 			'files' => array(),
