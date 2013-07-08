@@ -5,7 +5,7 @@ class GBS_Enable_Tipping_Notification {
 
 	public static function init() {
 		add_filter( 'gb_notification_types', array( get_class(), 'register_notification_type' ), 10, 1 );
-		add_action( 'gb_apply_free_deal_reward', array( get_class(), 'notification' ), 10, 2 );
+		add_action( 'gb_apply_refund', array( get_class(), 'notification' ), 10, 4 );
 	}
 
 	public function register_notification_type( $notifications ) {
