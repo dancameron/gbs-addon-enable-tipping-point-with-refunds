@@ -66,21 +66,20 @@ class GBS_Refund_Users {
 
 	public static function reward_applied_record( $account, $purchase_id, $refund_amount, $credit_type ) {
 		$account_id = $account->get_ID();
-		$balance = $account->get_credit_balance( $type );
+		$balance = $account->get_credit_balance( $credit_type );
 
 		// Setup data array
 		$data = array();
 		$data['account_id'] = $account_id;
 		$data['purchase_id'] = $purchase_id;
 		$data['credits'] = $refund_amount;
-		$data['type'] = $type;
-		$data['current_total_'.$type] = $balance;
-		$data['change_'.$type] = $refund_amount;
-
+		$data['type'] = $credit_type;
+		$data['current_total_'.$credit_type] = $balance;
+		$data['change_'.$credit_type] = $refund_amount;
 		// Record
 		Group_Buying_Records::new_record(
 			sprintf( gb__( 'Payment Refunded from Purchase #%s' ), $purchase_id ),
-			$credit_type,
+			Group_Buying_Accounts::$record_type . '_' . $credit_type,
 			sprintf( gb__( 'Payment Refunded from Purchase #%s' ), $purchase_id ),
 			1,
 			$account_id,
