@@ -1,7 +1,8 @@
 <?php
 
 class GBS_Enable_Tipping_Addon {
-	const CREDIT_TYPE = 'balance'; // match up with Group_Buying_Accounts::CREDIT_TYPE
+	//const CREDIT_TYPE = 'balance'; // match up with Group_Buying_Accounts::CREDIT_TYPE
+	const CREDIT_TYPE = 'affiliate'; // match up with Group_Buying_Affiliates::CREDIT_TYPE
 	const META_KEY_THRESHOLD = '_gbs_refund_deals';
 	const NOTIFICATION_TYPE = 'refunded_user_notification';
 
