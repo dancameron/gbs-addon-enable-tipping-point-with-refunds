@@ -20,11 +20,14 @@ class GBS_Refund_Users {
 					error_log( 'already refunded' . print_r( TRUE, TRUE ) );
 					continue;
 				}
+				error_log( 'payment ++++++++++++++++++++++ ' . print_r( $payment, TRUE ) );
 				$payment_method = $payment->get_payment_method();
+				error_log( 'payment method ' . print_r( $payment_method, TRUE ) );
 				// Don't handle credit payments
 				if ( $payment_method != Group_Buying_Account_Balance_Payments::PAYMENT_METHOD || $payment_method != Group_Buying_Affiliate_Credit_Payments::PAYMENT_METHOD ) {
 
 					$items = $payment->get_deals();
+					error_log( 'items ' . print_r( $items, TRUE ) );
 					// Loop through the payments deals
 					foreach ( $items as $deal_id => $purchase_items ) {
 						// Only those deals that have failed
@@ -33,9 +36,11 @@ class GBS_Refund_Users {
 							foreach ( $purchase_items as $item ) {
 								// Loop through all the payment methods to tally.
 								foreach ( $item['payment_method'] as $payment_method => $payment_amount ) {
+									error_log( 'payment ' . print_r( $payment_amount , TRUE ) );
 									// again don't tally credits
 									if ( $payment_method != Group_Buying_Account_Balance_Payments::PAYMENT_METHOD && $payment_method != Group_Buying_Affiliate_Credit_Payments::PAYMENT_METHOD ) {
 										$refund_amount += $payment_amount;
+										error_log( 'payment applied ' . print_r( $payment_amount, TRUE ) );
 									}
 								}
 							}
@@ -81,6 +86,7 @@ class GBS_Refund_Users {
 		$data['type'] = $credit_type;
 		$data['current_total_'.$credit_type] = $balance;
 		$data['change_'.$credit_type] = $refund_amount;
+		error_log( 'data ' . print_r( $data, TRUE ) );
 		// Record
 		Group_Buying_Records::new_record(
 			sprintf( gb__( 'Payment Refunded from Purchase #%s' ), $purchase_id ),
