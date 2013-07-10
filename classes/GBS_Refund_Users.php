@@ -4,6 +4,9 @@ class GBS_Refund_Users {
 
 	public static function init() {
 		add_action( 'deal_failed', array( __CLASS__, 'maybe_refund' ) );
+
+		// Record
+		add_action( 'gb_apply_refund', array( __CLASS__, 'reward_applied_record' ), 10, 5 );
 	}
 
 	public function maybe_refund( Group_Buying_Deal $deal ) {
