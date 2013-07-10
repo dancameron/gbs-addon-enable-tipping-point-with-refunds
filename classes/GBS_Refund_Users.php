@@ -85,16 +85,17 @@ class GBS_Refund_Users {
 		$data['purchase_id'] = $purchase_id;
 		$data['credits'] = $refund_amount;
 		$data['type'] = $credit_type;
-		$data['current_total_'.$credit_type] = $balance;
-		$data['change_'.$credit_type] = $refund_amount;
-		error_log( 'data ' . print_r( $data, TRUE ) );
+		$data['adjustment_value'] = $refund_amount;
+		$data['current_total'] = $balance;
+		$data['prior_total'] = $balance-$refund_amount;
 		// Record
-		Group_Buying_Records::new_record(
-			sprintf( gb__( 'Payment Refunded from Purchase #%s' ), $purchase_id ),
+		$record_id = Group_Buying_Records::new_record(
+			sprintf( gb__( 'Payment Refunded from Purchase #%s (Item ID: #%s)' ), $purchase_id, $item_id ),
 			Group_Buying_Accounts::$record_type . '_' . $credit_type,
-			sprintf( gb__( 'Payment Refunded from Purchase #%s' ), $purchase_id ),
+			sprintf( gb__( 'Payment Refunded from Purchase #%s (Item ID: #%s)' ), $purchase_id, $item_id ),
 			1,
 			$account_id,
 			$data );
+
 	}
 }
