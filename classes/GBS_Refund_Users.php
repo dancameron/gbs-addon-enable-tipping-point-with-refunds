@@ -74,8 +74,9 @@ class GBS_Refund_Users {
 		}
 	}
 
-	public static function reward_applied_record( $account, $purchase_id, $refund_amount, $credit_type ) {
-		$account_id = $account->get_ID();
+	public static function reward_applied_record( $user_id, $item_id, $refund_amount, $credit_type, $purchase_id ) {
+		$account = Group_Buying_Account::get_instance( $user_id );
+		$account_id = $account->get_id();
 		$balance = $account->get_credit_balance( $credit_type );
 
 		// Setup data array
