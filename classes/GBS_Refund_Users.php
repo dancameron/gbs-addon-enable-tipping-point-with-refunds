@@ -66,10 +66,7 @@ class GBS_Refund_Users {
 			$account->add_credit( $refund_amount, $credit_type );
 
 			// Fire off the notification manually
-			do_action( 'gb_apply_refund', $account->get_user_id(), $item_id, $refund_amount, $credit_type );
-
-			// Record reward
-			self::reward_applied_record( $account, $purchase->get_id(), $refund_amount, $credit_type );
+			do_action( 'gb_apply_refund', $account->get_user_id(), $item_id, $refund_amount, $credit_type, $purchase->get_id() );
 
 			// Reset for other purchases
 			$refund_amount = 0;
