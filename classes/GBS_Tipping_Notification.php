@@ -1,6 +1,6 @@
 <?php
 
-class GBS_Enable_Tipping_Notification {
+class GBS_Tipping_Notification {
 	const NOTIFICATION_TYPE = 'refunded_user_notification';
 
 	public static function init() {

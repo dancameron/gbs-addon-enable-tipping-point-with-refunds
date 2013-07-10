@@ -12,12 +12,12 @@ class GBS_Enable_Tipping_Addon {
 		GBS_Refund_Users::init();
 
 		if ( is_admin() ) {
-			require_once('GBS_Enable_Tipping_MetaBox.php');
-			GBS_Enable_Tipping_MetaBox::init();
+			require_once('GBS_Tipping_MetaBox.php');
+			GBS_Tipping_MetaBox::init();
 		}
 
-		require_once('GBS_Enable_Tipping_Notification.php');
-		GBS_Enable_Tipping_Notification::init();
+		require_once('GBS_Tipping_Notification.php');
+		GBS_Tipping_Notification::init();
 	}
 
 	public static function gb_addon( $addons ) {
